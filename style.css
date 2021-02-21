@@ -1,0 +1,39 @@
+.card,
+.default,
+.default2,
+.card2 {
+  height: 14rem;
+  width: 18%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.default,
+.default2 {
+  position: relative;
+}
+.card,
+.card2 {
+  margin: 0;
+  width: 100%;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.hide {
+  opacity: 1;
+  transform: translateZ(-5rem);
+  transition: 1s all ease-in-out;
+}
+.card-container {
+  padding: 2px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.default,
+.default2 {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwUj__NyM09uRckJrCgJsYcKIMbXYWX_glyQ&usqp=CAU");
+}
