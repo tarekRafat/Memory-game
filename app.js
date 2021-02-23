@@ -5,50 +5,61 @@ var firstCard, secondCard;
 //collection of pictures
 var collection1 = [
     { id: 1, imgUrl: "https://i1.wp.com/blog.education.nationalgeographic.org/wp-content/uploads/2018/01/tech-tools.jpg?ssl=1" },
-    { id: 2, imgUrl: "https://slidescarnival-d1aa.kxcdn.com/wp-content/uploads/2019/09/free-technology-powerpoint-template-or-google-slides-theme-with-isometric-illustrations-400x225.jpg" },
-    { id: 3, imgUrl: "https://www.online-tech-tips.com/wp-content/uploads/2020/01/free-software.png" },
+    { id: 2, imgUrl: "https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" },
+    { id: 3, imgUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y29tcHV0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" },
     { id: 4, imgUrl: "https://thumbs.dreamstime.com/b/flat-lay-composition-words-technical-support-phone-computer-keyboard-grey-background-flat-lay-composition-words-130293805.jpg" },
 ];
-var collection2 = [
-    { id: 1, imgUrl: "https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" },
-    { id: 2, imgUrl: "https://thumbs.dreamstime.com/b/two-people-coding-code-program-programming-developer-computer-web-development-coder-working-design-software-desk-office-139990440.jpg" },
-    { id: 3, imgUrl: "https://image.shutterstock.com/image-vector/software-web-development-programming-concept-260nw-1122339353.jpg" },
-    { id: 4, imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIGld5b0NVJcBryxEGu7XeWQnY0RQDQeRUoQ&usqp=CAU" },
-];
+// const collection2 :PictureType[] = [
+//     {id:1,imgUrl:"https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"},
+//     {id:2,imgUrl:"https://thumbs.dreamstime.com/b/two-people-coding-code-program-programming-developer-computer-web-development-coder-working-design-software-desk-office-139990440.jpg"},
+//     {id:3,imgUrl:"https://image.shutterstock.com/image-vector/software-web-development-programming-concept-260nw-1122339353.jpg"},
+//     {id:4,imgUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIGld5b0NVJcBryxEGu7XeWQnY0RQDQeRUoQ&usqp=CAU"},
+// ];
 var Card = /** @class */ (function () {
-    // cardDefault:NodeListOf<Element>; 
     function Card(cards, hidden) {
         this.cards = cards;
         this.hidden = hidden;
-        // this.cardDefault = cardDefault;
     }
-    Card.prototype.displaycollection1 = function (colec) {
-        this.randomImg(colec);
-    };
+    //Methods
     Card.prototype.randomInt = function (max, min) {
         var randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
         return randomNumber;
     };
+    Card.prototype.displaycollection1 = function (colec) {
+        this.randomImg(colec);
+        this.flipCards();
+    };
     Card.prototype.randomImg = function (imgs) {
+        var randomSourceImg;
+        var randomSourceImg2;
+        var testDiv;
+        var testDiv2;
+        var newPic;
+        var newPic2;
+        // console.log(this.hidden)
+        randomSourceImg = this.randomSource(imgs);
+        randomSourceImg2 = this.randomSource(imgs);
+        for (var i = 0; i < imgs.length / 2; i++) {
+            if (randomSourceImg === randomSourceImg2) {
+                randomSourceImg = this.randomSource(imgs);
+                randomSourceImg2 = this.randomSource(imgs);
+            }
+            testDiv = document.createElement("div");
+            newPic = " <img src=\"" + randomSourceImg + "\"/>";
+            testDiv.innerHTML = newPic;
+            document.body.appendChild(testDiv);
+            testDiv2 = document.createElement("div");
+            newPic2 = " <img src=\"" + randomSourceImg2 + "\"/>";
+            testDiv2.innerHTML = newPic2;
+            document.body.appendChild(testDiv2);
+        }
+    };
+    Card.prototype.randomSource = function (imgs) {
         var source = imgs[this.randomInt(imgs.length - 1, 0)].imgUrl;
-        // const source2 = imgs[this.randomInt(imgs.length-1,0)].imgUrl;
-        // const source3 = imgs[this.randomInt(imgs.length-1,0)].imgUrl;
-        // const source4 = imgs[this.randomInt(imgs.length-1,0)].imgUrl;
-        // const source2 = imgs[this.randomInt(imgs.length-1,0)].imgUrl;
-        // console.log({source,source2,source3,source4})
-        var _a = this.hidden, first = _a[0], second = _a[1], third = _a[2], fourth = _a[3];
-        // first.style.backgroundImage  = `url(${source})`;
-        // third.style.backgroundImage  = `url(${source2})`;
-        // second.style.backgroundImage  = `url(${source3})`;
-        // fourth.style.backgroundImage  = `url(${source4})`;
-        console.log(first);
-        // console.log(this)
-        // first.src = source;
-        // second = source;
-        // third = source2;
-        // fourth = source2;
+        return source;
+    };
+    Card.prototype.flipCards = function () {
         this.hidden.forEach(function (hidden, index) {
-            hidden.style.backgroundImage = "url(" + source + ")";
             hidden.addEventListener("click", function () {
                 hidden.classList.add("hide");
                 if (!clicked) {
@@ -58,7 +69,6 @@ var Card = /** @class */ (function () {
                 else {
                     clicked = false;
                     secondCard = hidden;
-                    // console.log({firstCard,secondCard,clicked})
                     setTimeout(function () {
                         if (firstCard.className === secondCard.className) {
                             // console.log({firstCardClass:firstCard.className,secondCardClass:secondCard.className})
@@ -76,10 +86,6 @@ var Card = /** @class */ (function () {
     return Card;
 }());
 var defaultCards = document.querySelectorAll(".default");
-var defaultCards2 = document.querySelectorAll(".default2");
 var hiddenCards = document.querySelectorAll(".card");
-var hiddenCards2 = document.querySelectorAll(".card2");
 var cards = new Card(defaultCards, hiddenCards);
-var cards2 = new Card(defaultCards2, hiddenCards2);
 cards.displaycollection1(collection1);
-cards2.displaycollection1(collection2);
